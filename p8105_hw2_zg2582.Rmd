@@ -28,3 +28,15 @@ ncol(q1_df)
 
 
 Q1 dataset contains information on entrance and exit of subway stations in NYC. It includes these variables: line, station_name, station_latitude, and station_longitude, route1 to route11, entry, entrance_type, vending, ada. To clean the data, I imported the CSV, and I noticed Route8–Route11 was read as numbers, so I recoded them as character. Then I cleaned the names, kept only the variables were instructed, and converted entry YES/NO to logical TRUE/FALSE. Dataset has 1868 rows and 19 columns. These data are not tidy. Many route columns have missing data, and column names hold information. To make data tidy, the route columns should be reconstructed to longer format with one column for route number and one for route name. 
+
+
+```{r}
+q1_df |> distinct(line, station_name) |> nrow()
+q1_df |> filter(ada == TRUE) |> distinct(line, station_name) |> nrow() 
+q1_df |> filter(vending == "NO") |> pull(entry) |> mean() 
+```
+
+There are 465 distinct stations.
+There are 84 stations are ADA compliant.
+There are 37.7% of station entrances / exits without vending.
+
