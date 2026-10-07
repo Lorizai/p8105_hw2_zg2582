@@ -1,0 +1,7 @@
+---
+title: "p8105_hw2_zg2582"
+author: "Zaixin Gao"
+date: "2026-10-07"
+output: github_document
+---
+
