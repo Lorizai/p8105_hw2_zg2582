@@ -61,6 +61,8 @@ There are 60 distinct stations serve the A train.
 
 # Question 2
 
+## Mr.Trash
+
 ```{r}
 q2_df =
   read_excel(
@@ -73,5 +75,31 @@ q2_df =
     sports_balls = as.integer(round(sports_balls)),
     year = as.numeric(year),
     trash_wheel = "mister")
+```
+
+## Professor Trash Wheel and Gwynnda
+
+```{r}
+professor_df =
+  read_excel(
+    "./data/Trash Wheel Collection Data.xlsx",
+    sheet = "Professor Trash Wheel",
+    range = "A2:M139") |>
+  janitor::clean_names() |>
+  drop_na(dumpster) |>
+  mutate(
+    year = as.numeric(year),
+    trash_wheel = "professor")
+
+gwynnda_df =
+  read_excel(
+    "./data/Trash Wheel Collection Data.xlsx",
+    sheet = "Gwynnda the Good Wheel of the W",
+    range = "A2:L394") |>
+  janitor::clean_names() |>
+  drop_na(dumpster) |>
+  mutate(
+    year = as.numeric(year),
+    trash_wheel = "gwynnda")
 ```
 
