@@ -5,3 +5,21 @@ date: "2026-10-07"
 output: github_document
 ---
 
+```{r}
+#library Set up
+library(tidyverse)
+library(readxl)
+```
+
+```{r warning = FALSE}
+q1_df =
+  read_csv(
+    "./data/NYC_Transit_Subway_Entrance_And_Exit_Data.csv",
+    col_types = cols(Route8 = "c", Route9 = "c", Route10 = "c", Route11 = "c")) |>
+  janitor::clean_names()|>
+  select(
+    line, station_name, station_latitude, station_longitude,
+    route1:route11, entry, vending, entrance_type, ada) |>
+  mutate(entry = case_match(entry, "YES" ~ TRUE, "NO" ~ FALSE))
+```
+
