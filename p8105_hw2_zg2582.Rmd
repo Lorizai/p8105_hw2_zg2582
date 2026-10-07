@@ -11,6 +11,7 @@ library(tidyverse)
 library(readxl)
 ```
 
+# Question 1
 ```{r warning = FALSE}
 q1_df =
   read_csv(
@@ -40,3 +41,19 @@ There are 465 distinct stations.
 There are 84 stations are ADA compliant.
 There are 37.7% of station entrances / exits without vending.
 
+```{r}
+q1_long =
+  q1_df |>
+  pivot_longer(
+    route1:route11,
+    names_to = "route_number",
+    names_prefix = "route",
+    values_to = "route_name") |>
+  drop_na(route_name)
+
+q1_long |> filter(route_name == "A") |> distinct(line, station_name) |> nrow()
+q1_long |> filter(route_name == "A", ada == TRUE) |> distinct(line, station_name) |> nrow()
+```
+
+There are 60 distinct stations serve the A train.
+17 stations that serve the A train are ADA compliant.
