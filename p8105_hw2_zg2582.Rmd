@@ -213,3 +213,13 @@ nrow(amyloid_only)
 8 participants appear only in the baseline data.
 16 appear only in the amyloid data.
 
+
+```{r}
+mci_df = inner_join(baseline_df, amyloid_df, by = "id")
+
+n_distinct(pull(mci_df, id))
+nrow(mci_df)
+```
+
+The combined dataset has 471 participants and 2355 rows, one per participant per visit. Each row contains demographic variables such as age, sex, education, APOE4 status, and also the visit time and the amyloid ratio.
+
