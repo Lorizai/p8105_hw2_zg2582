@@ -167,5 +167,31 @@ prop_female_carrier = mean(female_apoe4 == "carrier")
 ## 30% of women in the study are APOE4 carriers.
 ```
 
-There were 93 participanst developed MCI.
+### Amyloid biomarkers
+
+```{r}
+amyloid_wide_df =
+  read_csv("./data/mci_amyloid.csv", skip = 1, na = c("NA", "Na", ".")) |>
+  janitor::clean_names() |>
+  rename(id = study_id)
+
+amyloid_df =
+  amyloid_wide_df |>
+  pivot_longer(
+    baseline:time_8,
+    names_to = "time",
+    values_to = "amyloid_ratio") |>
+  mutate(
+    time = case_match(
+      time,
+      "baseline" ~ 0,
+      "time_2" ~ 2,
+      "time_4" ~ 4,
+      "time_6" ~ 6,
+      "time_8" ~ 8))
+
+nrow(amyloid_df)
+```
+
+I skipped the description row, treated "NA" and "Na" and "." as missing, and renamed study_id to id to match the baseline data. I used pivot_longer to create a tidy dataset with one row per participant per visit. There are 2435 rows, with the variables for participant ID, time (baseline and followup), and the amyloid ratio.
 
