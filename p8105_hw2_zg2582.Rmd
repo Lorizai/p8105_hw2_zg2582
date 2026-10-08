@@ -84,7 +84,8 @@ professor_df =
   read_excel(
     "./data/Trash Wheel Collection Data.xlsx",
     sheet = "Professor Trash Wheel",
-    range = "A2:M139") |>
+    range = "A2:M139",
+    na = c("", "NA", "dive")) |>
   janitor::clean_names() |>
   drop_na(dumpster) |>
   mutate(
@@ -101,5 +102,9 @@ gwynnda_df =
   mutate(
     year = as.numeric(year),
     trash_wheel = "gwynnda")
+
+trash_wheel_df =
+  bind_rows(q2_df, professor_df, gwynnda_df) |>
+  relocate(trash_wheel)
 ```
 
