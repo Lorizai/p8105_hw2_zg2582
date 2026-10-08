@@ -134,27 +134,31 @@ nrow(trash_wheel_df)
 # Question 3
 
 ```{r}
-baseline_df =
+baseline_raw_df =
   read_csv("./data/MCI_baseline.csv", skip = 1, na = c(".", "NA")) |>
   janitor::clean_names() |>
   mutate(
     sex = case_match(sex, 1 ~ "male", 0 ~ "female"),
-    apoe4 = case_match(apoe4, 1 ~ "carrier", 0 ~ "non_carrier")) |>
+    apoe4 = case_match(apoe4, 1 ~ "carrier", 0 ~ "non_carrier"))
+
+baseline_df =
+  baseline_raw_df |>
   filter(is.na(age_at_onset) | age_at_onset > current_age)
 
+nrow(baseline_raw_df)
 nrow(baseline_df)
 ```
 
 To import the baseline data, I skipped the first row, which is the description of the variables, and treated "." in age at onset as missing, and recoded sex and APOE4 status from numeric codes to labels. I then removed participants whose MCI onset was at or before their baseline age, since they did not meet the inclusion criteria.
 
-There were 479 people recruited (remove any participants who do not meet the stated inclusion criteria).
+There were 483 people recruited, but after removing participants who do not meet the stated inclusion criteria, there were only 479 left. 
 
 ```{r}
 n_develop_mci =
   baseline_df |>
   filter(!is.na(age_at_onset)) |>
   nrow()
-## 93 participants were recruited.
+## 93 participants developed MCI.
 
 mean_baseline_age = mean(pull(baseline_df, current_age))
 ## The average baseline age is 65.
