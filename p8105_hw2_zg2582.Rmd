@@ -195,3 +195,21 @@ nrow(amyloid_df)
 
 I skipped the description row, treated "NA" and "Na" and "." as missing, and renamed study_id to id to match the baseline data. I used pivot_longer to create a tidy dataset with one row per participant per visit. There are 2435 rows, with the variables for participant ID, time (baseline and followup), and the amyloid ratio.
 
+
+```{r}
+# In baseline but not in amyloid
+baseline_only =
+  anti_join(baseline_df, amyloid_df, by = "id")
+
+# In amyloid but not in baseline
+amyloid_only =
+  anti_join(amyloid_df, baseline_df, by = "id") |>
+  distinct(id)
+
+nrow(baseline_only)
+nrow(amyloid_only)
+```
+
+8 participants appear only in the baseline data.
+16 appear only in the amyloid data.
+
