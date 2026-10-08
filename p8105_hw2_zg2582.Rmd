@@ -108,3 +108,25 @@ trash_wheel_df =
   relocate(trash_wheel)
 ```
 
+
+```{r}
+professor_total_weight =
+  trash_wheel_df |>
+  filter(trash_wheel == "professor") |>
+  pull(weight_tons) |>
+  sum(na.rm = TRUE)
+## Total weight from Professor Trash Wheel is 294.96 tons.
+
+gwynnda_june_2022_butts =
+  trash_wheel_df |>
+  filter(trash_wheel == "gwynnda", month == "June", year == 2022) |>
+  pull(cigarette_butts) |>
+  sum(na.rm = TRUE)
+## Total number of Gwynnda's cigarette butts in June 2022 is 18120.
+
+nrow(trash_wheel_df)
+## The number of observations is the combined dataset: 1269.
+## Example of key variables include 'dumpster', 'date', 'weight_tons', volume_cubic_yards
+
+```
+
