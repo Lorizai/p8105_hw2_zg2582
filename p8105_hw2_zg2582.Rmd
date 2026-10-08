@@ -223,3 +223,7 @@ nrow(mci_df)
 
 The combined dataset has 471 participants and 2355 rows, one per participant per visit. Each row contains demographic variables such as age, sex, education, APOE4 status, and also the visit time and the amyloid ratio.
 
+
+```{r export}
+write_csv(mci_df, "./data/mci_combined.csv")
+```
