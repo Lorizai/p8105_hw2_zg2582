@@ -150,7 +150,21 @@ To import the baseline data, I skipped the first row, which is the description o
 There were 479 people recruited (remove any participants who do not meet the stated inclusion criteria).
 
 ```{r}
-baseline_df |> filter(!is.na(age_at_onset)) |> nrow()
+n_develop_mci =
+  baseline_df |>
+  filter(!is.na(age_at_onset)) |>
+  nrow()
+## 93 participants were recruited.
+
+mean_baseline_age = mean(pull(baseline_df, current_age))
+## The average baseline age is 65.
+
+female_apoe4 =
+  baseline_df |>
+  filter(sex == "female") |>
+  pull(apoe4)
+prop_female_carrier = mean(female_apoe4 == "carrier")
+## 30% of women in the study are APOE4 carriers.
 ```
 
 There were 93 participanst developed MCI.
